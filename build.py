@@ -98,7 +98,7 @@ def page(key, title, description, content):
   <link rel="icon" href="/assets/favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=DM+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=DM+Sans:wght@400;600;700;800&amp;family=Graduate&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/style.css">
   <script src="/assets/story.js" defer></script>
 </head>
@@ -200,9 +200,9 @@ def homepage():
   </div>
 </section>
 <section class="chapters" id="chapters" aria-labelledby="chapters-title">
-  <div class="wrap">
-    <h2 id="chapters-title">Explore the traditions</h2>
-    <div class="card-grid">{cards}</div>
+  <div class="wrap explore-grid">
+    <h2 id="chapters-title" class="explore-title"><span>Explore the</span> <span>traditions</span></h2>
+    {cards}
   </div>
 </section>
 <section class="timeline" id="timeline" aria-labelledby="timeline-title">
