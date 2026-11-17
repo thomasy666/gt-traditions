@@ -132,17 +132,26 @@ def page(key, title, description, content):
 """
 
 
-def timeline_row(year, event, chapters):
+TIMELINE_SPAN = (1900, 2030)
+
+
+def timeline_row(index, year, event, chapters):
     first_key, first_year = chapters[0]
     year_link = f"/{first_key}/#year-{first_year}"
     links = " ".join(
         f'<a href="/{key}/#year-{anchor}">{escape(CHAPTERS[key]["label"])}</a>'
         for key, anchor in chapters
     )
-    return f"""<li>
-    <a class="timeline-year" href="{year_link}">{year}</a>
-    <span class="timeline-event">{escape(event)}</span>
-    <span class="timeline-destinations">{links}</span>
+    start, end = TIMELINE_SPAN
+    position = round((int(year[:4]) - start) / (end - start) * 100, 2)
+    side = "above" if index % 2 == 0 else "below"
+    return f"""<li style="--pos: {position}%">
+    <button class="timeline-dot" type="button" data-side="{side}" aria-controls="timeline-card-{index}" hidden><span class="timeline-dot-label">{year}</span><span class="timeline-dot-mark" aria-hidden="true"></span></button>
+    <div class="timeline-card" id="timeline-card-{index}">
+      <a class="timeline-year" href="{year_link}">{year}</a>
+      <span class="timeline-event">{escape(event)}</span>
+      <span class="timeline-destinations">{links}</span>
+    </div>
   </li>"""
 
 
@@ -159,7 +168,7 @@ def chapter_card(key, chapter):
 
 def homepage():
     cards = "\n".join(chapter_card(key, chapter) for key, chapter in CHAPTERS.items())
-    years = "\n".join(timeline_row(*entry) for entry in TIMELINE)
+    years = "\n".join(timeline_row(index, *entry) for index, entry in enumerate(TIMELINE))
     return f"""<section class="cover" aria-labelledby="cover-title">
   <div class="cover-inner">
     <h1 id="cover-title" class="sr-only">{TITLE}</h1>
@@ -199,8 +208,15 @@ def homepage():
 <section class="timeline" id="timeline" aria-labelledby="timeline-title">
   <div class="wrap">
     <h2 id="timeline-title">Timeline</h2>
-    <p class="timeline-intro">Choose a year to jump to its story.</p>
-    <ol class="timeline-list">{years}</ol>
+    <p class="timeline-intro">Choose a year to see what happened, then jump to its story.</p>
+    <div data-timeline>
+      <ol class="timeline-list">{years}</ol>
+      <div class="timeline-steps" hidden>
+        <button type="button" data-step="-1"><span aria-hidden="true">←</span> Earlier</button>
+        <span class="timeline-count" aria-live="polite"></span>
+        <button type="button" data-step="1">Later <span aria-hidden="true">→</span></button>
+      </div>
+    </div>
   </div>
 </section>"""
 
