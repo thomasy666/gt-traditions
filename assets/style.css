@@ -184,7 +184,7 @@ h2 { font-size: clamp(2.45rem, 5.5vw, 4.7rem); }
   .is-line .timeline-destinations { justify-content: flex-start; font-size: .86rem; }
   .is-line .timeline-destinations a::after { content: " →"; }
   .timeline-steps { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 14px; }
-  .timeline-steps button { min-height: 44px; padding: .5rem .9rem; border: 1px solid var(--navy); background: none; color: var(--navy); font-size: .85rem; font-weight: 800; cursor: pointer; }
+  .timeline-steps button { min-height: 44px; padding: .5rem .9rem; border: 1px solid var(--navy); background: none; color: var(--navy); font: 800 .85rem/1.2 var(--sans); cursor: pointer; }
   .timeline-steps button:hover:not(:disabled) { background: var(--navy); color: var(--white); }
   .timeline-steps button:disabled { border-color: var(--line); color: #7d848d; cursor: default; }
   .timeline-count { color: var(--muted); font-size: .8rem; font-weight: 700; }
@@ -260,6 +260,28 @@ details.reveal > p { margin: 6px 0 9px; font-size: 1rem; }
 .rat-score { display: flex; gap: 11px; text-align: center; }
 .rat-score span:nth-child(2) { transform: rotate(180deg); }
 .rat-score span:nth-child(3) { transform: rotate(90deg); }
+.stunt-stands {
+  --cols: 25;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  gap: 3px;
+  padding: clamp(8px, 2vw, 14px);
+  background: repeating-linear-gradient(180deg, #3a4558 0 calc(100% / 7 - 2px), #232c3c calc(100% / 7 - 2px) calc(100% / 7));
+  border-top: 4px solid var(--gold);
+  perspective: 900px;
+}
+.stunt-card { position: relative; aspect-ratio: 3 / 4; -webkit-transform-style: preserve-3d; transform-style: preserve-3d; transition: transform .45s ease var(--delay, 0s); cursor: pointer; }
+.stunt-face { position: absolute; inset: 0; border-radius: 2px; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.stunt-front { background: #f4f1e8; box-shadow: inset 0 -2px 0 #d6d0c0; transform: rotateY(0deg); }
+.stunt-back { background: var(--navy); box-shadow: inset 0 -2px 0 rgb(0 0 0 / .25); transform: rotateY(180deg); }
+.stunt-card.is-up { transform: rotateY(180deg); }
+.stunt-card.is-gold .stunt-back { background: #e3b84a; }
+.stunt-controls { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.stunt-controls button { min-height: 44px; min-width: 64px; padding: .5rem .95rem; border: 1px solid var(--navy); background: none; color: var(--navy); font: 800 .85rem/1.2 var(--sans); cursor: pointer; }
+.stunt-controls button:hover, .stunt-controls button[aria-pressed="true"] { background: var(--navy); color: var(--white); }
+.stunt-controls .stunt-reset { margin-left: auto; border-color: var(--line); }
+.stunt-status { min-height: 1.4em; margin-top: 8px; color: var(--muted); font: .82rem/1.4 var(--sans); }
+@media (max-width: 480px) { .stunt-stands { gap: 2px; } }
 .gallery { display: grid; gap: 11px; }
 .gallery details { padding: 1px 12px 8px; border: 1px solid var(--line); background: var(--paper); }
 .gallery img { width: 100%; max-height: 400px; object-fit: contain; background: #ece7db; }

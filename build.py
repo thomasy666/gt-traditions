@@ -1,3 +1,4 @@
+from hashlib import md5
 from html import escape
 from pathlib import Path
 import re
@@ -80,6 +81,10 @@ TIMELINE = [
 ]
 
 
+def asset_version(name):
+    return md5((ROOT / "assets" / name).read_bytes()).hexdigest()[:8]
+
+
 def page(key, title, description, content):
     nav_items = []
     for page_key, label, href in PAGES:
@@ -100,8 +105,8 @@ def page(key, title, description, content):
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=DM+Sans:wght@400;600;700;800&amp;family=Graduate&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/style.css">
-  <script src="/assets/story.js" defer></script>
+  <link rel="stylesheet" href="/assets/style.css?v={asset_version("style.css")}">
+  <script src="/assets/story.js?v={asset_version("story.js")}" defer></script>
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to content</a>
@@ -297,7 +302,7 @@ def build():
     write_page("index.html", page("home", TITLE, "A student digital story about Georgia Tech football traditions.", homepage()))
     for key, chapter in CHAPTERS.items():
         content = (FRAGMENTS / f"{key}.html").read_text(encoding="utf-8")
-        for marker in ("WRECK-COMPARE", "RAT-CAP", "BUZZ-GALLERY", "SONG-NOTES"):
+        for marker in ("WRECK-COMPARE", "RAT-CAP", "BUZZ-GALLERY", "SONG-NOTES", "CARD-STUNT"):
             comment = f"<!-- {marker} -->"
             if comment in content:
                 insert = (FRAGMENTS / f"{marker.lower()}.html").read_text(encoding="utf-8")

@@ -11,8 +11,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=DM+Sans:wght@400;600;700;800&amp;family=Graduate&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/style.css">
-  <script src="../assets/story.js" defer></script>
+  <link rel="stylesheet" href="../assets/style.css?v=5a8625b4">
+  <script src="../assets/story.js?v=715581a2" defer></script>
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to content</a>
@@ -120,6 +120,21 @@
     <a href="../assets/drive-img_0453.webp"><img src="../assets/drive-display-slides.webp" alt="Four mounted slides capture letter formations made from cards held up by fans in the stands" loading="lazy"></a>
     <figcaption>Student card displays, slides 701–704. <a href="../sources/#source-slides">Dean of Students collection</a>.</figcaption>
   </figure>
+    <section class="interactive card-stunt" aria-labelledby="stunt-title" data-stunt>
+    <div class="interactive-head">
+      <h3 id="stunt-title">Flip the card section</h3>
+      <p>Each square is one student holding a card. Pick a message to flip the section on cue, or tap single cards to make your own.</p>
+    </div>
+    <div class="stunt-stands" aria-hidden="true"></div>
+    <div class="stunt-controls" role="group" aria-label="Card display message" hidden>
+      <button type="button" data-word="GT" aria-pressed="false">GT</button>
+      <button type="button" data-word="TECH" aria-pressed="false">TECH</button>
+      <button type="button" data-word="WAVE" aria-pressed="false">Wave</button>
+      <button type="button" data-word="" class="stunt-reset">Cards down</button>
+    </div>
+    <p class="stunt-status" aria-live="polite"><noscript>Turn on JavaScript to flip the cards.</noscript></p>
+  </section>
+
 </section>
 
 <section class="chapter-section" id="year-1995">
