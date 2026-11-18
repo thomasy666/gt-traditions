@@ -149,3 +149,38 @@ for (const stunt of document.querySelectorAll("[data-stunt]")) {
   controls.hidden = false;
   status.textContent = "";
 }
+
+{
+  const imageLinks = [...document.querySelectorAll("a[href]")].filter((link) => /\.(webp|png|jpe?g|gif)(\?.*)?$/i.test(link.getAttribute("href")) && link.querySelector("img"));
+  if (imageLinks.length && typeof HTMLDialogElement === "function") {
+    const viewer = document.createElement("dialog");
+    viewer.className = "lightbox";
+    viewer.setAttribute("aria-label", "Image viewer");
+    viewer.innerHTML = '<button type="button" class="lightbox-close" aria-label="Close image">✕</button><figure><img alt=""><figcaption></figcaption></figure>';
+    document.body.append(viewer);
+    const image = viewer.querySelector("img");
+    const caption = viewer.querySelector("figcaption");
+    let opener = null;
+
+    const close = () => viewer.close();
+    viewer.querySelector(".lightbox-close").addEventListener("click", close);
+    viewer.addEventListener("click", (event) => { if (event.target === viewer) close(); });
+    viewer.addEventListener("close", () => { image.removeAttribute("src"); document.documentElement.classList.remove("lightbox-open"); opener?.focus(); });
+
+    for (const link of imageLinks) {
+      link.addEventListener("click", (event) => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+        event.preventDefault();
+        opener = link;
+        const thumb = link.querySelector("img");
+        image.src = link.href;
+        image.alt = thumb.alt;
+        const source = link.closest("figure")?.querySelector("figcaption");
+        caption.innerHTML = source ? source.innerHTML : "";
+        caption.hidden = !source;
+        document.documentElement.classList.add("lightbox-open");
+        viewer.showModal();
+      });
+    }
+  }
+}

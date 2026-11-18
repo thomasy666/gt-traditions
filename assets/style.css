@@ -336,6 +336,16 @@ details.reveal > p { margin: 6px 0 9px; font-size: 1rem; }
   .song-grid { grid-template-columns: 1fr; }
   .prose, .story-copy { font-size: 1.065rem; }
 }
+.lightbox-open { overflow: hidden; }
+.lightbox { max-width: none; max-height: none; width: 100%; height: 100%; margin: 0; padding: clamp(16px, 4vw, 48px); border: 0; background: rgb(10 15 25 / .92); color: var(--white); }
+.lightbox::backdrop { background: transparent; }
+.lightbox[open] { display: grid; place-items: center; }
+.lightbox figure { display: grid; justify-items: center; gap: 10px; max-width: 100%; max-height: 100%; pointer-events: none; }
+.lightbox img { max-width: min(100%, 1400px); max-height: calc(100vh - 140px); width: auto; height: auto; object-fit: contain; background: #ece7da; pointer-events: auto; }
+.lightbox figcaption { max-width: 70ch; color: #e1d9c4; font: .85rem/1.5 var(--sans); text-align: center; pointer-events: auto; }
+.lightbox figcaption a { color: #f4e0a8; }
+.lightbox-close { position: fixed; top: 14px; right: 14px; width: 44px; height: 44px; border: 1px solid #ffffff55; border-radius: 50%; background: var(--navy); color: var(--white); font-size: 1.1rem; cursor: pointer; }
+.lightbox-close:hover { background: #2a3b56; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: 0s !important; }
