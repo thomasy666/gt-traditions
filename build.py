@@ -106,6 +106,7 @@ def page(key, title, description, content):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=DM+Sans:wght@400;600;700;800&amp;family=Graduate&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/style.css?v={asset_version("style.css")}">
+  <script src="/assets/vendor/qrcode.js" defer></script>
   <script src="/assets/story.js?v={asset_version("story.js")}" defer></script>
 </head>
 <body>

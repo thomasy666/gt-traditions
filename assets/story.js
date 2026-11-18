@@ -184,3 +184,45 @@ for (const stunt of document.querySelectorAll("[data-stunt]")) {
     }
   }
 }
+
+{
+  const externalLinks = [...document.querySelectorAll('a[href^="http"]')];
+  if (externalLinks.length && typeof HTMLDialogElement === "function" && typeof qrcode === "function") {
+    const sheet = document.createElement("dialog");
+    sheet.className = "lightbox";
+    sheet.setAttribute("aria-labelledby", "qr-heading");
+    sheet.innerHTML = `<button type="button" class="lightbox-close" aria-label="Close">✕</button>
+      <div class="qr-panel">
+        <h2 id="qr-heading">Scan to read more</h2>
+        <p>Point your phone’s camera at the code to open this page.</p>
+        <div class="qr-code"></div>
+        <p class="qr-title"></p>
+        <p class="qr-url"></p>
+        <button type="button" class="qr-back">Back to the story</button>
+      </div>`;
+    document.body.append(sheet);
+    const code = sheet.querySelector(".qr-code");
+    const title = sheet.querySelector(".qr-title");
+    const url = sheet.querySelector(".qr-url");
+
+    const close = () => sheet.close();
+    sheet.querySelector(".lightbox-close").addEventListener("click", close);
+    sheet.querySelector(".qr-back").addEventListener("click", close);
+    sheet.addEventListener("click", (event) => { if (event.target === sheet) close(); });
+    sheet.addEventListener("close", () => document.documentElement.classList.remove("lightbox-open"));
+
+    for (const link of externalLinks) {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        const qr = qrcode(0, "M");
+        qr.addData(link.href);
+        qr.make();
+        code.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
+        title.textContent = link.textContent.trim();
+        url.textContent = link.hostname + link.pathname.replace(/\/$/, "");
+        document.documentElement.classList.add("lightbox-open");
+        sheet.showModal();
+      });
+    }
+  }
+}

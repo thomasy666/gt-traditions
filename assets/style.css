@@ -336,6 +336,15 @@ details.reveal > p { margin: 6px 0 9px; font-size: 1rem; }
   .song-grid { grid-template-columns: 1fr; }
   .prose, .story-copy { font-size: 1.065rem; }
 }
+a[href^="http"]::after { content: "\2197\FE0E"; display: inline-block; margin-left: .2em; font-size: .78em; text-decoration: none; }
+.qr-panel { display: grid; justify-items: center; gap: 14px; width: min(100%, 420px); padding: 28px 26px 24px; background: var(--paper); color: var(--ink); border-top: 5px solid var(--gold); text-align: center; }
+.qr-panel h2 { font-size: clamp(1.9rem, 5vw, 2.6rem); text-transform: uppercase; }
+.qr-panel p { color: var(--muted); font: .95rem/1.45 var(--sans); }
+.qr-code { width: min(70vw, 260px); padding: 12px; background: var(--white); }
+.qr-code svg { display: block; width: 100%; height: auto; }
+.qr-title { color: var(--navy) !important; font-weight: 700 !important; }
+.qr-url { overflow-wrap: anywhere; font-size: .78rem !important; }
+.qr-back { min-height: 52px; width: 100%; border: 0; background: var(--navy); color: var(--white); font: 800 1rem/1 var(--sans); cursor: pointer; }
 .lightbox-open { overflow: hidden; }
 .lightbox { max-width: none; max-height: none; width: 100%; height: 100%; margin: 0; padding: clamp(16px, 4vw, 48px); border: 0; background: rgb(10 15 25 / .92); color: var(--white); }
 .lightbox::backdrop { background: transparent; }
